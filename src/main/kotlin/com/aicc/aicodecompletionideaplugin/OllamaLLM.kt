@@ -1,8 +1,8 @@
 package com.aicc.aicodecompletionideaplugin
 
-import io.github.amithkoujalgi.ollama4j.core.OllamaAPI
-import io.github.amithkoujalgi.ollama4j.core.utils.Options
-import io.github.amithkoujalgi.ollama4j.core.utils.OptionsBuilder
+import io.github.ollama4j.OllamaAPI
+import io.github.ollama4j.utils.Options
+import io.github.ollama4j.utils.OptionsBuilder
 import java.net.http.HttpTimeoutException
 
 /**
@@ -36,7 +36,7 @@ object OllamaLLM : LLM {
                         setRequestTimeoutSeconds(60)
                         // TODO feed the filename
                         // TODO eot Mellum
-                    }.generate(model, "<filename>TODO.kt<fim_suffix>$suffix<fim_prefix>$prefix<fim_middle>", options).response.let {
+                    }.generate(model, "<filename>TODO.kt<fim_suffix>$suffix<fim_prefix>$prefix<fim_middle>", true, options).response.let {
                         if (it.endsWith(END)) it.substring(0, it.length - END.length).trim(' ', '\t', '\n') else it
                     }
                 } catch (e: HttpTimeoutException) {
